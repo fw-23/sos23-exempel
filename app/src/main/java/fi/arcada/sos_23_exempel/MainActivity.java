@@ -13,6 +13,8 @@ public class MainActivity extends AppCompatActivity {
     TextView outputText;
     EditText inputText;
 
+    double[] values = { 3.5, 5, 8.6, 23, 7, 9, 5, 3, 2 };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,13 +28,22 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void buttonHandler(View view) {
+    public void calculate(View view) {
+
+        outputText.setText(String.format("Hej %s\n\nMedelvärde: %.2f",
+                inputText.getText(),
+                Statistics.calcMean(values)
+        ));
+    }
+
+
+    /*public void buttonHandler(View view) {
         //System.out.println("Du tryckte på knappen!");
 
         // Vi avläser vår EditText och omvandlar till String
         String namn = inputText.getText().toString();
 
-        outputText.setText("Hej " + namn + "!");
+        outputText.setText(Statistics.greet() + " " + namn + "!");
 
-    }
+    }*/
 }
