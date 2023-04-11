@@ -34,16 +34,21 @@ public class MainActivity extends AppCompatActivity {
         outputText = findViewById(R.id.outputText);
         inputText = findViewById(R.id.editTextName);
 
-        outputText.setText("...");
+        DataItem mittObjekt = new DataItem("Helsingfors");
+        DataItem mittAndraObjekt = new DataItem("Esbo");
+
+        outputText.setText(mittObjekt.getName() + " " + mittAndraObjekt.getName());
+
 
     }
 
     public void calculate(View view) {
 
-        outputText.setText(String.format("Hej %s\n\nMedelvärde: %.2f\nMedian: %.2f",
+        outputText.setText(String.format("Hej %s\n\nMedelvärde: %.2f\nMedian: %.2f\nStandardavvikelse: %.2f",
                 inputText.getText(),
                 Statistics.calcMean(values),
-                Statistics.calcMedian(values)
+                Statistics.calcMedian(values),
+                Statistics.calcSD(values)
         ));
     }
 

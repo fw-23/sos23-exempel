@@ -34,5 +34,16 @@ public class Statistics {
 
     }
 
+    public static double calcSD(ArrayList<Double> values) {
+        double mean = calcMean(values);
+        double sumOfDiff = 0;
+        for (int i = 0; i < values.size(); i++) {
+            sumOfDiff += Math.pow(values.get(i)-mean, 2);
+        }
+        double variance = sumOfDiff / values.size();
+
+        return Math.sqrt(variance);
+    }
+
 
 }
