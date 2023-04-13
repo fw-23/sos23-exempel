@@ -1,6 +1,8 @@
 package fi.arcada.sos_23_exempel;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
     // deklarera variabler
     TextView outputText;
     EditText inputText;
+    RecyclerView recyclerView;
 
     ArrayList<DataItem> dataItems = new ArrayList<>();
     ArrayList<Double> values = new ArrayList<>();
@@ -38,6 +41,12 @@ public class MainActivity extends AppCompatActivity {
         // Vi skapar en koppling mellan vår Java-kod och vår XML-layout
         outputText = findViewById(R.id.outputText);
         inputText = findViewById(R.id.editTextName);
+        recyclerView = findViewById(R.id.dataItemsRecyclerView);
+
+        CustomAdapter adapter = new CustomAdapter(this, dataItems);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
 
         DataItem mittObjekt = new DataItem("Helsingfors", 658457);
         DataItem mittAndraObjekt = new DataItem("Esbo", 297132);

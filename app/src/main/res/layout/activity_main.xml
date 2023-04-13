@@ -41,6 +41,7 @@
         app:layout_constraintTop_toTopOf="@+id/editTextName" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/dataItemsRecyclerView"
         android:layout_width="412dp"
         android:layout_height="441dp"
         app:layout_constraintBottom_toBottomOf="parent"
