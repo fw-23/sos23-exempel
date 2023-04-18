@@ -20,7 +20,6 @@ public class MainActivity extends AppCompatActivity {
     CustomAdapter adapter;
 
     ArrayList<DataItem> dataItems = new ArrayList<>();
-    ArrayList<Double> values = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void calculate(View view) {
 
+        if (inputValue.getText() == null) return;
+
         dataItems.add(new DataItem(
                 inputText.getText().toString(),
                 Double.parseDouble(inputValue.getText().toString())
@@ -50,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
 
         // Skapa values-arraylist med endast värden
+        ArrayList<Double> values = new ArrayList<>();
         for (DataItem item: dataItems) {
             values.add(item.getValue());
         }
@@ -59,10 +61,11 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        outputText.setText(String.format("Medelvärde: %.2f\nMedian: %.2f\nStandardavvikelse: %.2f",
+        outputText.setText(String.format("Medelvärde: %.2f\nMedian: %.2f\nStandardavvikelse: %.2f\nTypvärde: %.2f",
                 Statistics.calcMean(values),
                 Statistics.calcMedian(values),
-                Statistics.calcSD(values)
+                Statistics.calcSD(values),
+                Statistics.calcMode(values)
         ));
     }
 

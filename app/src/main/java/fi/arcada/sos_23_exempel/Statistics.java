@@ -3,6 +3,7 @@ package fi.arcada.sos_23_exempel;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 
 public class Statistics {
 
@@ -44,11 +45,12 @@ public class Statistics {
     }
 
     public static double calcMean(ArrayList<Double> values) {
+        System.out.println(values.size());
+
         double total = 0;
         for (int i = 0; i < values.size(); i++) {
             total += values.get(i);
         }
-
         return total / values.size();
 
     }
@@ -64,5 +66,40 @@ public class Statistics {
         return Math.sqrt(variance);
     }
 
+    /**
+     * Lånad från 2022 (se video på itslearning)
+     */
+    public static double calcMode(ArrayList<Double> dataset) {
+        HashMap<Double, Integer> valueCount = new HashMap<>();
+
+        for (double dataValue: dataset) {
+            Integer count = valueCount.get(dataValue);
+
+            // Om vi inte tidigare räknat detta värde, sätt det till 0
+            if (count == null)  count = 0;
+            // Öka counten för detta värde med 1
+            valueCount.put(dataValue, count+1);
+            //valueCount.put(dataValue, (count == null ? 0 : count) + 1);
+
+            /* Om vi tänker JSON skulle det se ut så här (fast vi ju inte får ha double som nycklar...)
+                {   268.0: 1,  316.0, 3 ...
+             */
+        }
+        int maxCount = 0;
+        double modeValue = 0.0;
+
+        // Enklast att loopa HashMap med keyset()
+        for (Double dataValue: valueCount.keySet()) {
+            Integer curCount = valueCount.get(dataValue);
+
+            // Om det nuvarande värdet är högre än det senast funna högsta värdet
+            if (curCount > maxCount) {
+                maxCount = curCount;
+                modeValue = dataValue;
+            }
+        }
+        return modeValue;
+
+    }
 
 }
