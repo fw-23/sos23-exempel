@@ -14,13 +14,13 @@
         android:layout_marginTop="44dp"
         android:text="---"
         android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@+id/editTextName"
-        app:layout_constraintTop_toBottomOf="@+id/editTextName" />
+        app:layout_constraintStart_toStartOf="@+id/dataName"
+        app:layout_constraintTop_toBottomOf="@+id/dataName" />
 
     <EditText
-        android:id="@+id/editTextName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/dataName"
+        android:layout_width="137dp"
+        android:layout_height="43dp"
         android:layout_marginStart="44dp"
         android:layout_marginTop="56dp"
         android:ems="10"
@@ -33,12 +33,12 @@
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="20dp"
         android:onClick="calculate"
         android:text="OK"
-        app:layout_constraintBottom_toBottomOf="@+id/editTextName"
-        app:layout_constraintStart_toEndOf="@+id/editTextName"
-        app:layout_constraintTop_toTopOf="@+id/editTextName" />
+        app:layout_constraintBottom_toBottomOf="@+id/dataName"
+        app:layout_constraintStart_toEndOf="@+id/dataValue"
+        app:layout_constraintTop_toTopOf="@+id/dataName" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/dataItemsRecyclerView"
@@ -49,5 +49,18 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/dataValue"
+        android:layout_width="97dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="8dp"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/dataName"
+        app:layout_constraintStart_toEndOf="@+id/dataName"
+        app:layout_constraintTop_toTopOf="@+id/dataName"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
