@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -41,13 +42,16 @@ public class MainActivity extends AppCompatActivity {
 
     public void calculate(View view) {
 
-        if (inputValue.getText() == null) return;
+        // Avbryt metoden om man försöker mata in ett tomt värde
+        if (TextUtils.isEmpty(inputValue.getText())) return;
 
+        // Lägg till ett nytt dataobjekt enligt användarens inmatning
         dataItems.add(new DataItem(
                 inputText.getText().toString(),
                 Double.parseDouble(inputValue.getText().toString())
         ));
 
+        // Uppdatera recyclerView:en
         adapter.notifyDataSetChanged();
 
         // Skapa values-arraylist med endast värden
@@ -56,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
             values.add(item.getValue());
         }
 
+        // Kolla att det finns tillräckligt med värden att räkna ut
         if (values.size() < 2) {
             outputText.setText("Mera data behövs...");
             return;
