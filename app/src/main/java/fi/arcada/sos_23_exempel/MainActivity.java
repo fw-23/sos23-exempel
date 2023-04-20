@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -16,63 +18,39 @@ public class MainActivity extends AppCompatActivity {
 
     // deklarera variabler
     TextView outputText;
-    EditText inputText, inputValue;
-    RecyclerView recyclerView;
-    CustomAdapter adapter;
+    EditText inputText;
 
-    ArrayList<DataItem> dataItems = new ArrayList<>();
+    //shared prefs
+    SharedPreferences sharedPref;
+    SharedPreferences.Editor prefEditor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //dataItems = Statistics.getSampleData();
-
-        // Vi skapar en koppling mellan vår Java-kod och vår XML-layout
         outputText = findViewById(R.id.outputText);
         inputText = findViewById(R.id.dataName);
-        inputValue = findViewById(R.id.dataValue);
-        recyclerView = findViewById(R.id.dataItemsRecyclerView);
 
-        adapter = new CustomAdapter(this, dataItems);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        // shared prefs
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        prefEditor = sharedPref.edit();
+
+        outputText.setText(String.format("Hej igen %s",
+                sharedPref.getString("savedName", "främling")
+        ));
+
     }
 
     public void calculate(View view) {
 
-        // Avbryt metoden om man försöker mata in ett tomt värde
-        if (TextUtils.isEmpty(inputValue.getText())) return;
+        // Läs variabel och spara i prefs
+        String myName = inputText.getText().toString();
+        prefEditor.putString("savedName", myName);
+        prefEditor.apply();
 
-        // Lägg till ett nytt dataobjekt enligt användarens inmatning
-        dataItems.add(new DataItem(
-                inputText.getText().toString(),
-                Double.parseDouble(inputValue.getText().toString())
-        ));
+        outputText.setText(String.format("Hej %s", myName));
 
-        // Uppdatera recyclerView:en
-        adapter.notifyDataSetChanged();
 
-        // Skapa values-arraylist med endast värden
-        ArrayList<Double> values = new ArrayList<>();
-        for (DataItem item: dataItems) {
-            values.add(item.getValue());
-        }
-
-        // Kolla att det finns tillräckligt med värden att räkna ut
-        if (values.size() < 2) {
-            outputText.setText("Mera data behövs...");
-            return;
-        }
-
-        outputText.setText(String.format("Medelvärde: %.2f\nMedian: %.2f\nStandardavvikelse: %.2f\nTypvärde: %.2f",
-                Statistics.calcMean(values),
-                Statistics.calcMedian(values),
-                Statistics.calcSD(values),
-                Statistics.calcMode(values)
-        ));
     }
-
-
 }
