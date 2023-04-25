@@ -1,29 +1,17 @@
 package fi.arcada.sos_23_exempel;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.text.TextUtils;
-import android.view.View;
-import android.widget.EditText;
+
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
 
     // deklarera variabler
     TextView outputText;
-    EditText inputText;
-
-    //shared prefs 1: deklarera
-    SharedPreferences sharedPref;
-    SharedPreferences.Editor prefEditor;
+    double[] temps = {-4.7, -4.8, -1.8, 0.7, 0.1, -6, -7.8, -7, -3.8, -10.6, -10.3, -0.3, 4.8, 2.6, 0.1, 1.2, -1.5, -2.7, 1.8, 0.2, -2, -5.5, -1.3, 2.1, -0.6, -0.9, 1, -0.5, -1.4, -1.6, -5.3, -7.7, -8.2, -9.5, -3.9, -0.4, 1, 0.8, -0.4, 0.6, 1, -1.5, -0.5, 1.4, 1.5, 1.8, 2, 1.1, -0.1, 0.1, -0.7, -0.4, -3, -6.8, 2, 1.5, -1.3, -0.2, 1.6, 1.9, 1.3, 0.6, -2, -2.4, 0.8, -0.3, -2.5, -2.6, -0.7, 1.8, 1.3, 0.9, 3, 0.7, 0.8, 1.6, 2.5, 2, 6.2};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,46 +19,20 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         outputText = findViewById(R.id.outputText);
-        inputText = findViewById(R.id.dataName);
 
-        // shared prefs 2: initialisera
-        sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-        prefEditor = sharedPref.edit();
+        outputText.setText("hello");
 
-        // CodeChallenge App Start Counter version 1
-        int appStarts = sharedPref.getInt("appStartCount", 0);
-        appStarts++; // öka med 1
-        prefEditor.putInt("appStartCount", appStarts); // spara som shared pref
+        System.out.println(Arrays.toString(
+                Statistics.sma3(temps)
+        ));
 
-        // CodeChallenge App Start Counter version 2 "One-Liner"
-        prefEditor.putInt("appStartCount2", sharedPref.getInt("appStartCount2", 0)+1);
+        System.out.println(Arrays.toString(
+                Statistics.sma(temps, 3)
+        ));
 
-        // spara "på hårdskivan"
-        prefEditor.apply();
-
-        // shared prefs 3: läs från shared prefs
-        outputText.setText(String.format("%s %s\nDu har startat appen %d gånger.",
-                sharedPref.getString("greeting", "Hej"),
-                sharedPref.getString("savedName", "främling"),
-                sharedPref.getInt("appStartCount", 0)
+        System.out.println(Arrays.toString(
+                Statistics.sma(temps, 10)
         ));
     }
 
-    public void openSettings(View view) {
-        Intent intent = new Intent(this, SettingsActivity.class);
-        startActivity(intent);
-    }
-
-    public void calculate(View view) {
-
-        String myName = inputText.getText().toString();
-
-        // shared prefs 4: spara i shared prefs
-        prefEditor.putString("savedName", myName);
-        prefEditor.apply();
-
-        outputText.setText(String.format("Hej %s", myName));
-
-
-    }
 }

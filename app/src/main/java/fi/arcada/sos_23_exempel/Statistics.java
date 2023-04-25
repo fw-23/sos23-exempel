@@ -1,7 +1,6 @@
 package fi.arcada.sos_23_exempel;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 
@@ -100,6 +99,35 @@ public class Statistics {
         }
         return modeValue;
 
+    }
+
+    /**
+     * Glidande medelvärde fönster 3 (Simple Moving Avg)
+     */
+    static double[] sma3(double[] dataset) {
+        double[] ma = new double[dataset.length];
+
+        for (int i = 2; i < dataset.length; i++) {
+            ma[i] = (dataset[i] + dataset[i-1] + dataset[i-2])/3;
+        }
+        return ma;
+    }
+
+    /**
+     * Glidande medelvärde (Simple Moving Avg)
+     */
+    static double[] sma(double[] dataset, int window) {
+        double[] ma = new double[dataset.length];
+
+        for (int i = window-1; i < dataset.length; i++) {
+            double sum = 0;
+            // Inre loop loopar igenom window
+            for (int j = 0; j < window; j++) {
+                sum += dataset[i-j]; // addera window-värdet till summan
+            }
+            ma[i] = sum/window;
+        }
+        return ma;
     }
 
 }
