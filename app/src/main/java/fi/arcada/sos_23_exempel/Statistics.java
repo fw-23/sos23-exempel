@@ -130,4 +130,15 @@ public class Statistics {
         return ma;
     }
 
+
+    /**
+     * Glidande medelvärde fönster 5 (Simple Moving Avg)
+     */
+    static double[] sma5(double[] dataset) {
+        double[] ma = new double[dataset.length];
+        for (int i = 4; i < dataset.length; i++) {
+            ma[i] = (dataset[i] + dataset[i-1] + dataset[i-2]+ dataset[i-3] + dataset[i-4])/5;
+        }
+        return ma;
+    }
 }
