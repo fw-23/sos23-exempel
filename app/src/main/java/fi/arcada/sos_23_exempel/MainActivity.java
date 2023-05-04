@@ -42,9 +42,14 @@ public class MainActivity extends AppCompatActivity {
         // Vi skapar en ArrayList med våra datalinjer
         ArrayList<DataLine> dataLines = new ArrayList<>();
         dataLines.add(new DataLine(temps, "Temperatur", 0, Color.GREEN));
+
         // En till datalinje med glidande medelvärde (sma)
-        double[] sma = Statistics.sma(temps, 10);
-        dataLines.add(new DataLine(sma, "SMA-10", 0, Color.RED));
+        int window = 10;
+        double[] sma = Statistics.sma(temps, window);
+        dataLines.add(new DataLine(sma, "SMA-10", window, Color.RED));
+
+        window = 20;
+        dataLines.add(new DataLine(Statistics.sma(temps, window), "SMA-20", window, Color.BLUE));
 
         // Anropa vår metod
         betterChart(dataLines);

@@ -116,7 +116,7 @@ public class Statistics {
     /**
      * Glidande medelvärde (Simple Moving Avg)
      */
-    static double[] sma(double[] dataset, int window) {
+    static double[] smaOld(double[] dataset, int window) {
         double[] ma = new double[dataset.length];
 
         for (int i = window-1; i < dataset.length; i++) {
@@ -124,6 +124,23 @@ public class Statistics {
             // Inre loop loopar igenom window
             for (int j = 0; j < window; j++) {
                 sum += dataset[i-j]; // addera window-värdet till summan
+            }
+            ma[i] = sum/window;
+        }
+        return ma;
+    }
+
+    /**
+     * Glidande medelvärde (Simple Moving Avg)
+     */
+    static double[] sma(double[] dataset, int window) {
+        double[] ma = new double[dataset.length-window];
+
+        for (int i = 0; i < ma.length; i++) {
+            double sum = 0;
+            // Inre loop loopar igenom window
+            for (int j = 0; j < window; j++) {
+                sum += dataset[i-j+window]; // vi börjar från dataset-index + fönsterstorleken
             }
             ma[i] = sum/window;
         }

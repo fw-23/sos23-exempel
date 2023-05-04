@@ -25,7 +25,8 @@ public class DataLine {
         List<Entry> entries = new ArrayList<>();
 
         for (int i = 0; i < dataValues.length; i++) {
-            entries.add(new Entry(i, (float) dataValues[i]));
+            // vi adderar startPosition till position på X
+            entries.add(new Entry(i+startPosition, (float) dataValues[i]));
         }
         return entries;
     }
