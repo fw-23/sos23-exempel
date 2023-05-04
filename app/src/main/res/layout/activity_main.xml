@@ -24,7 +24,7 @@
         android:layout_marginStart="52dp"
         android:layout_marginTop="104dp"
         android:ems="10"
-        android:hint="Skriv ditt namn!"
+        android:hint="Skriv ett tal!"
         android:inputType="textPersonName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,14 +27,24 @@ public class MainActivity extends AppCompatActivity {
 
         outputText.setText("...");
 
+        Toast.makeText(this, "Hello!", Toast.LENGTH_LONG).show();
+
     }
 
     public void calculate(View view) {
 
-        outputText.setText(String.format("Hej %s\n\nMedelvärde: %.2f",
-                inputText.getText(),
-                Statistics.calcMean(values)
-        ));
+        try {
+            outputText.setText(String.format("Hej talet är %.2f",
+                    Double.parseDouble(inputText.getText().toString())
+            ));
+        } catch (NumberFormatException e) {
+            outputText.setText("Du måste ge ett giltigt tal!");
+
+            // toast: https://developer.android.com/guide/topics/ui/notifiers/toasts#java
+            Toast.makeText(getApplicationContext(), "Du måste ge ett giltigt tal!", Toast.LENGTH_LONG).show();
+
+        }
+
     }
 
 
